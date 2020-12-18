@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">AppCrudPessoa</a>
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/home">Home </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" *ngIf="_appService.isLoggedIn" routerLink="/pessoa">Pessoa</a>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="!_appService.isLoggedIn">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/register">Sign Up</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="_appService.isLoggedIn">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/pessoa">{{ username }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="logout()">LogOut</a>
+        </li>
+    </ul>
+</nav>
+<div class="col-md-12 container">
+    <h2 style="margin: auto"> Lista de Pessoas</h2>
+    <button class="btn btn-success" style="width:110px" (click)="addPessoa()"> Add Pessoa</button>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="hidden">Id</th>
+                <th>Nome</th>
+                <th>Cpf</th>
+                <th>Datanascimento</th>
+                <th>Estado</th>
+                <th>Cidade</th>
+                <th>Cep</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pessoa of pessoas">
+                <td class="hidden">{{pessoa.Id}}</td>
+                <td>{{pessoa.Nome}}</td>
+                <td>{{pessoa.Cpf}}</td>
+                <td>{{pessoa.DataNascimento}}</td>
+                <td>{{pessoa.Estado}}</td>
+                <td>{{pessoa.Cidade}}</td>
+                <td>{{pessoa.Cep}}</td>
+                <td style="width: 167px;">
+                    <button class="btn btn-success" (click)="deletePessoa(pessoa)"> Delete</button>
+                    <button class="btn btn-success" (click)="editPessoa(pessoa)" style="margin-left: 20px;"> Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

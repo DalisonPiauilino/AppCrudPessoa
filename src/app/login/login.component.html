@@ -1,0 +1,31 @@
+<main class="form-signin">
+    <form *ngIf="!_appService.isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="mb-4" alt="" width="72" height="57"/>
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <label for="inputEmail" class="visually-hidden">Email</label>
+        <input type="text" class="form-control" id="inputEmail" name="email" type="email" placeholder="Email" [(ngModel)]="form.email" required #email="ngModel" autofocus />
+        <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
+            Email é requerido!
+        </div>
+        <label for="inputPassword" class="visually-hidden">Password</label>
+        <input type="password" id="inputPassword" placeholder="Password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+        <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.minlength">
+                Password must be at least 6 characters
+            </div>
+        </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <div class="form-group">
+            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                Login failed: {{ errorMessage }}
+            </div>
+        </div>
+        <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+    </form>
+</main>
